@@ -5,6 +5,7 @@ const Article = mongoose.model("Article", {
   description: { type: String },
   date: { type: Date },
   content: { type: String },
+  image:{ type: String },
   tags: { type: Array },
 });
 module.exports = Article;
