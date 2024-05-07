@@ -1,47 +1,76 @@
-/*
-const Article=require("../models/article")
-const multer=require("multer")
-const express=require('express')
-const articleRouter=express.Router()
-fileName=''
-const myStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads/'); // Destination folder for uploaded files
-    },
-    filename: (req, file, redirect) => {
-    //   cb(null,Date.now() + '-' + file.originalname);
-     // Rename the file to include the timestamp
-     let date=Date.now()
-     let fl=date+'-'+file.mimetype.split('/')[1]
-     redirect(null,fl)
-     fileName=fl;
-    },
-  });
-  const upload = multer({ storage: myStorage });
-articleRouter.post('/all',upload.any('image'),(req,res)=>
-{
-    let data=req.body;
-    console.log(data);
-    const article=new Article(data)
-    article.date=new Date()
-    article.image=fileName;
-    article.tags=data.tags.split(',')
-    article.
-    article.save()
-    .then((result)=>
-{
-fileName='';
-res.status(201).json({
-    message:'done',
-    article:result
-})
-}).catch((err)=>
-{
-    res.status(500).json({
-        message:'server error',
-        error:err
-    })
-})
+const Article = require("../models/article");
 
-})
-*/
+const getAllArticle = (req, res) => {
+  Article.find({})
+    .then((result) => {
+      res.status(200).json({
+        message: "all article",
+        articles: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "server error",
+        error: err,
+      });
+    });
+};
+const getArticleById = (req, res) => {
+  const { id } = req.params;
+  Article.findById(id)
+    .then((result) => {
+      res.status(200).json({
+        message: `article that has id =>${id}`,
+        article: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "server error",
+        error: err,
+      });
+    });
+};
+const getArticleByAuthorId = (req, res) => {
+  const { author } = req.query;
+  Article.find({ idAuthor: author })
+    .then((result) => {
+      if (result.length == 0) {
+        res.status(200).json({
+          message: `article that has id =>${author} not found`,
+        });
+      } else {
+        res.status(200).json({
+          message: `article that has id =>${author}`,
+          articles: result,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "server error",
+        error: err,
+      });
+    });
+};
+const deleteArticleByID = (req, res) => {
+  const { id } = req.params;
+  Article.findByIdAndDelete(id)
+    .then((result) => {
+      res.status(200).json({
+        message: `article that has id =>${id} deleted`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "server error",
+        error: err,
+      });
+    });
+};
+module.exports = {
+  getArticleByAuthorId,
+  getAllArticle,
+  getArticleById,
+  deleteArticleByID,
+};

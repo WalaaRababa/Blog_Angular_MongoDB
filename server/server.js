@@ -11,6 +11,7 @@ require('./models/db')
 
 app.use('/user',UserRouter)
 app.use('/article',articleRouter)
+app.use('/getImage',express.static('/uploads'))
 
 app.listen(PORT,()=>
 {
