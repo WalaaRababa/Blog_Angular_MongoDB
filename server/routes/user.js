@@ -66,10 +66,10 @@ UserRouter.post("/login", async(req, res) => {
           expiresIn: "5h",
         };
         const token = jwt.sign(payload, process.env.SECRET, options);
-        res.status(200).json({
-          message: "valid login",
-          user: token,
-        });
+        res.status(200).json(
+          // message: "valid login",
+          token
+        );
       }
     }
   } catch (error) {
