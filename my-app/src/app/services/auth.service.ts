@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ if(token)
     
   }
 }
-  getAuthorById(id:any){
+  getAuthorById(id:any):Observable<any>{
     return this.http.get(this.url+id)
   }
 

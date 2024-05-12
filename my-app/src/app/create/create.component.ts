@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,AngularEditorModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -25,7 +27,7 @@ export class CreateComponent {
   img: string = '';
   tag: string = '';
 
-  constructor(private article_http: ArticleService, private auth: AuthService) { }
+  constructor(private article_http: ArticleService, private auth: AuthService, private router:Router) { }
   select(event: any) {
     this.img= event.target.files[0]
   }
@@ -65,6 +67,8 @@ console.log(fd);
     this.article_http.createNewArticle(articleData, headers).subscribe(
       res => {
         console.log(res);
+        this.router.navigate(['/home'])
+
       },
       error => {
         console.log(error);

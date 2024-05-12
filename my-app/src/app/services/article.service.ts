@@ -18,4 +18,16 @@ return this.http.post<any>(this.url+'all',article)
     const options = { headers: headers }; 
 return this.http.post<any>(this.url+'all',article,options)
   }
+  getAllArticle():Observable<any>
+  {
+    return this.http.get(this.url)
+  }
+  getArticleByAuthor(id:any):Observable<any>
+  {
+    return this.http.get<any>(this.url+'searchBy/'+id)
+  }
+  getArticleById(id:any):Observable<any>
+  {
+    return this.http.get<any>(this.url+id)
+  }
 }

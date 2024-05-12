@@ -75,5 +75,5 @@ if(fileName.length>0)
     })
 articleRouter.get('/',getAllArticle)
 articleRouter.get('/:id',getArticleById)
-articleRouter.get("/searchBy",getArticleByAuthorId)
+articleRouter.get("/searchBy/:id",getArticleByAuthorId)
 module.exports=articleRouter

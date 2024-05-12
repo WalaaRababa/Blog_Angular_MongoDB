@@ -32,16 +32,16 @@ const getArticleById = (req, res) => {
     });
 };
 const getArticleByAuthorId = (req, res) => {
-  const { author } = req.query;
-  Article.find({ idAuthor: author })
+  const { id } = req.params;
+  Article.find({ idAuthor: id })
     .then((result) => {
       if (result.length == 0) {
         res.status(200).json({
-          message: `article that has id =>${author} not found`,
+          message: `author that has id =>${id} no article for him yet`,
         });
       } else {
         res.status(200).json({
-          message: `article that has id =>${author}`,
+          message: `author that has id =>${id}`,
           articles: result,
         });
       }

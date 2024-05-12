@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,5 +11,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-constructor(public auth:AuthService){}
+constructor(public auth:AuthService,private router:Router){}
+logOut()
+{
+  localStorage.removeItem('token')
+  this.router.navigate(['/login'])
+}
 }

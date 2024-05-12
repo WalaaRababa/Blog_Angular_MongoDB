@@ -8,6 +8,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { AuthorComponent } from './author/author.component';
+import { AuthGuard } from './services/auth.guard';
 
 export const routes: Routes = [
     {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -15,7 +16,7 @@ export const routes: Routes = [
     {path:'login',component:LoginComponent},
     {path:'register',component:RegisterComponent},
     {path:'about',component:AboutComponent},
-    {path:'create',component:CreateComponent},
+    {path:'create',canActivate:[AuthGuard],component:CreateComponent},
     {path:'article/:id',component:DetailComponent},
     {path:'author/:id',component:AuthorComponent},
 
